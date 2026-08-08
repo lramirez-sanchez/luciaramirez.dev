@@ -27,7 +27,7 @@ export default function TerminalCommand({
         $ {command}
       </p>
 
-      <div className="pl-2 text-white">
+      <div className="pl-2 text-blue-400">
         {output}
       </div>
     </motion.div>

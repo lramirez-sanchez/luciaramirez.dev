@@ -6,52 +6,62 @@ import TerminalCommand from "./TerminalCommand";
 export default function Terminal() {
   return (
     <motion.div
-    initial={{
+      initial={{
         opacity: 0,
-        x: 120,
-    }}
-
-    animate={{
+        x: 80,
+      }}
+      animate={{
         opacity: 1,
-         x: 0,
-    }}
-
-    transition={{
-        duration: .9,
+        x: 0,
+      }}
+      transition={{
+        duration: 0.9,
         delay: 1.6,
-}}
+      }}
       whileHover={{
-        rotateX: 2,
-        rotateY: -3,
+        rotateX: 1.5,
+        rotateY: -2,
         scale: 1.01,
+        boxShadow: "0 20px 40px rgba(0, 0, 0, 0.10)",
+      }}
+      style={{
+        transformPerspective: 1000,
       }}
       className="
-        w-[520px]
+        w-[420px]
         overflow-hidden
         rounded-2xl
         border
-        border-zinc-800
-        bg-[#18181B]
-        shadow-2xl
+        border-zinc-200
+        bg-zinc-50
+        shadow-xl
       "
     >
       {/* Barra */}
 
-      <div className="flex items-center gap-3 border-b border-zinc-800 px-5 py-4">
+      <div
+        className="
+          flex
+          items-center
+          gap-2.5
+          border-b
+          border-zinc-200
+          px-4
+          py-3
+        "
+      >
+        <div className="h-2.5 w-2.5 rounded-full bg-red-400" />
+        <div className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+        <div className="h-2.5 w-2.5 rounded-full bg-green-400" />
 
-        <div className="h-3 w-3 rounded-full bg-red-400" />
-        <div className="h-3 w-3 rounded-full bg-yellow-400" />
-        <div className="h-3 w-3 rounded-full bg-green-400" />
-
-        <span className="ml-4 text-zinc-500">
+        <span className="ml-3 text-xs text-zinc-400">
           terminal
         </span>
-
       </div>
 
       {/* Contenido */}
 
-      <div className="space-y-8 p-8 font-mono text-lg">
+      <div className="space-y-6 p-6 font-mono text-sm">
 
         <TerminalCommand
           command="whoami"
@@ -66,7 +76,7 @@ export default function Terminal() {
         <TerminalCommand
           command="skills"
           output={
-            <div className="space-y-1 text-green-400">
+            <div className="space-y-1 text-emerald-600">
               <p>✓ Python</p>
               <p>✓ SQL</p>
               <p>✓ Linux</p>
@@ -80,9 +90,11 @@ export default function Terminal() {
           output="Available for freelance"
         />
 
-        <p className="text-zinc-500">
+        <p className="text-zinc-400">
           $ _
-          <span className="animate-pulse text-white"> |</span>
+          <span className="animate-pulse text-zinc-700">
+            {" |"}
+          </span>
         </p>
 
       </div>
