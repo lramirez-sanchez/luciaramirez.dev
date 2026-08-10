@@ -13,10 +13,7 @@ export default function ProjectSection({
   title,
 }: ProjectSectionProps) {
   return (
-    <section
-      id={id}
-      className="relative bg-white"
-    >
+    <section id={id}>
       {/* Título Sticky */}
 
       <div
@@ -64,34 +61,59 @@ export default function ProjectSection({
       {/* Proyectos */}
 
       <div className="relative z-10 bg-white">
+
+        {/* Academic System */}
+
         <ProjectCard
           title="Academic System"
-          description="Sistema de gestión académica desarrollado con Python y PostgreSQL para administrar alumnos, asignaturas y profesores."
+          description="Backend académico desarrollado con Python y FastAPI, utilizando PostgreSQL para gestionar estudiantes, asignaturas, profesores, matrículas y calificaciones."
           technologies={[
             "Python",
+            "FastAPI",
             "PostgreSQL",
-            "Docker",
+            "SQL",
+            "Pytest",
           ]}
+          images={[
+            "/projects/academic-system/api.png",
+            "/projects/academic-system/students.png",
+            "/projects/academic-system/performance.png",
+          ]}
+          github="https://github.com/lramirez-sanchez/academic-system"
         />
+
+        {/* Invoice Automation */}
 
         <ProjectCard
           title="Invoice Automation"
-          description="Automatización del procesamiento de facturas mediante OCR y flujos de trabajo automáticos."
+          description="Sistema de automatización para procesar facturas, extraer información mediante OCR y estructurar los datos automáticamente."
           technologies={[
             "Python",
             "FastAPI",
             "OCR",
           ]}
+          images={[
+            "/projects/invoice-automation/upload.png",
+            "/projects/invoice-automation/processing.png",
+            "/projects/invoice-automation/result.png",
+          ]}
         />
+
+        {/* Telegram Bot */}
 
         <ProjectCard
           title="Telegram Bot"
-          description="Bot para automatizar tareas y enviar notificaciones utilizando la API de Telegram."
+          description="Bot desarrollado para automatizar tareas y enviar notificaciones mediante la API de Telegram."
           technologies={[
             "Python",
             "Telegram API",
           ]}
+          images={[
+            "/projects/telegram-bot/bot.png",
+            "/projects/telegram-bot/notifications.png",
+          ]}
         />
+
       </div>
     </section>
   );

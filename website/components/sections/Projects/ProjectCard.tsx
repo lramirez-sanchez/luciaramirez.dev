@@ -1,18 +1,41 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface ProjectCardProps {
   title: string;
   description: string;
   technologies: string[];
+  images?: string[];
+  github?: string;
+  demo?: string;
 }
 
 export default function ProjectCard({
   title,
   description,
   technologies,
+  images = [],
+  github,
+  demo,
 }: ProjectCardProps) {
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (images.length <= 1 || isPaused) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setCurrentImage((previous) => (previous + 1) % images.length);
+    }, 8000);
+
+    return () => clearInterval(interval);
+  }, [images.length, isPaused]);
+
   return (
     <motion.article
       initial={{
@@ -68,7 +91,7 @@ export default function ProjectCard({
         {description}
       </p>
 
-      {/* Imagen */}
+      {/* Carrusel */}
 
       <div
         className="
@@ -80,6 +103,7 @@ export default function ProjectCard({
       >
         <div
           className="
+            relative
             aspect-video
             w-full
             max-w-2xl
@@ -91,12 +115,56 @@ export default function ProjectCard({
             shadow-sm
             xl:max-w-4xl
           "
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
-          <div className="flex h-full items-center justify-center">
-            <span className="text-lg text-zinc-400">
-              Screenshot del proyecto
-            </span>
-          </div>
+          {images.length > 0 ? (
+            <Image
+              src={images[currentImage]}
+              alt={`${title} screenshot ${currentImage + 1}`}
+              fill
+              className="object-cover"
+              priority={currentImage === 0}
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <span className="text-lg text-zinc-400">
+                Screenshot del proyecto
+              </span>
+            </div>
+          )}
+
+          {/* Indicadores */}
+
+          {images.length > 1 && (
+            <div
+              className="
+                absolute
+                bottom-4
+                left-1/2
+                flex
+                -translate-x-1/2
+                gap-2
+              "
+            >
+              {images.map((_, index) => (
+                <span
+                  key={index}
+                  className={`
+                    h-2
+                    w-2
+                    rounded-full
+                    transition-all
+                    ${
+                      index === currentImage
+                        ? "w-6 bg-zinc-900"
+                        : "bg-zinc-400"
+                    }
+                  `}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -138,29 +206,39 @@ export default function ProjectCard({
         {/* Enlaces */}
 
         <div className="flex gap-8">
-          <button
-            className="
-              text-lg
-              font-medium
-              text-zinc-900
-              transition
-              hover:translate-x-1
-            "
-          >
-            GitHub →
-          </button>
+          {github && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                text-lg
+                font-medium
+                text-zinc-900
+                transition
+                hover:translate-x-1
+              "
+            >
+              GitHub ↗︎
+            </a>
+          )}
 
-          <button
-            className="
-              text-lg
-              font-medium
-              text-zinc-500
-              transition
-              hover:translate-x-1
-            "
-          >
-            Live Demo →
-          </button>
+          {demo && (
+            <a
+              href={demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                text-lg
+                font-medium
+                text-zinc-500
+                transition
+                hover:translate-x-1
+              "
+            >
+              Live Demo →
+            </a>
+          )}
         </div>
       </div>
     </motion.article>
